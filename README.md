@@ -85,5 +85,7 @@ python3 manage.py migrate
 ### Folder structure
 
 livescore-app (This folder is where our environemt, our readme and our requirements.txt live)
+
 -> livescore_app (This folder is where our manage.py file is located)
+
 --> livescore_app (This is where all the magic happens)
