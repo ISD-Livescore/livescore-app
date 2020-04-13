@@ -28,18 +28,18 @@ sudo apt install -y python3-venv
 
 To create a virtual environment you run 
 
-```python3 -m venv <NAME OF YOUR VENV>```
+```python3 -m venv env```
 
-The name of your virtual environment does not matter for this project. You just need to remember what it is because the next step is to activate the virtual environment. This step differs between Windows and UNIX systems:
+For the name of the virtual environment we choose `env`. You just need to remember what it is because the next step is to activate the virtual environment. This step differs between Windows and UNIX systems:
 
 WINDOWS
 ```
-<NAME OF YOUR VENV>\Scripts\activate.bat
+env\Scripts\activate.bat
 ```
 
 UNIX
 ```
-source <NAME OF YOUR VENV>/bin/activate
+source env/bin/activate
 ```
 
 After activating our virtual environment, the next step is to install all the required dependencies:
@@ -50,7 +50,20 @@ pip install -r requirements.txt
 
 This commands gets all the packages that are saved in the `requirements.txt` file and installs the versions that are defined there. If at any point you add a package to the project you need to run `pip freeze > requirements.txt` to add the new dependency to the file.
 
+Now that we have all the dependencies setup correctly you can go into the `livescore_app` folder.
 
+In this folder we need to setup our database. To do so, we need to run two commands:
+
+1) `python3 manage.py migrate`
+2) `python3 manage.py createsuperuser`
+
+The first command creates a database from all our files and the second command creates a user that allows us to navigate our own app
+
+The last step of the initial setup is to check if everything worked correctly by running
+
+```
+python3 manage.py runserver
+```
 
 ## Important commands
 
