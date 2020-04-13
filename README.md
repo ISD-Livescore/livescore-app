@@ -50,7 +50,7 @@ pip install -r requirements.txt
 
 This commands gets all the packages that are saved in the `requirements.txt` file and installs the versions that are defined there. If at any point you add a package to the project you need to run `pip freeze > requirements.txt` to add the new dependency to the file.
 
-Now that we have all the dependencies setup correctly you can go into the `livescore_app` folder.
+Now that we have all the dependencies setup correctly you can go into the `livescore_app` folder. This is the folder where our `manage.py` file lives and where we are going to spend most of our development time.
 
 In this folder we need to setup our database. To do so, we need to run two commands:
 
@@ -67,8 +67,23 @@ python3 manage.py runserver
 
 ## Important commands
 
-TODO
+```
+python3 manage.py runserver
+```
+```
+python3 manage.py startapp <NAME OF YOUR APP>
+```
+```
+python3 manage.py makemigrations
+```
+```
+python3 manage.py migrate
+```
 
 ## Project structure
 
-TODO
+### Folder structure
+
+livescore-app (This folder is where our environemt, our readme and our requirements.txt live)
+-> livescore_app (This folder is where our manage.py file is located)
+--> livescore_app (This is where all the magic happens)
