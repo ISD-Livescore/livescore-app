@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" class="h-100">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    {% load static %}
+    <link rel="stylesheet" href="{% static "css/bootstrap.min.css" %}">
+    <link rel="stylesheet" href="{% static "css/style.css" %}">
+
+    <title>{{ title|default:"Livescore App"}}</title>
+</head>
+<body class="d-flex flex-column h-100">
+    {% include 'navbar.html' %}
+    
+    <!-- Begin page content -->
+    <main role="main" class="flex-shrink-0">
+        <div class="container">
+                {% block content %}
+                    will be replaced
+                {% endblock content %}
+        </div>
+    </main>
+
+
+    {% include 'footer.html' %}
+
+    {% load static %}
+    <script src="{% static "js/jquery.min.js" %}"></script>
+    <script src="{% static "js/bootstrap.min.js" %}"></script>
+
+</body>
+</html>
