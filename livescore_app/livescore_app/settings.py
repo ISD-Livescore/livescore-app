@@ -40,6 +40,7 @@ INSTALLED_APPS = [
 
     # our apps
     'views',
+    'livescore_app',
 ]
 
 MIDDLEWARE = [
