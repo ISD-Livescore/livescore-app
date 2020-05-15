@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Ongoing tournaments</h1> 
+    <br />
+    {% for tournament in tournaments %}
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">{{ tournament.name }}</h5>
+                <h6 class="card-subtitle mb-2 text-muted">
+                    {{ tournament.date }} - 
+                    
+                    {% if tournament.status == 'complete' %}
+                        <span class="text-muted">{{ tournament.status }} </span>
+                    {% endif %}
+                    
+                    {% if tournament.status == 'running' %}
+                        <span class="text-success">{{ tournament.status }} </span>
+                    {% endif %}
+
+                    {% if tournament.status == 'upcoming' %}
+                        <span class="text-primary">{{ tournament.status }} </span>
+                    {% endif %}
+                </h6>
+                
+
+                <a href="#" class="card-link">View Tournament</a>
+            </div>
+        </div>
+        <br>
+    {% endfor %}
+
+
+{% endblock content %}
