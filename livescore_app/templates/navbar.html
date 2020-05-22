@@ -20,8 +20,34 @@
                 <li class="nav-item">
                     <a class="nav-link" href="#">Link 2</a>
                 </li>
+
             </ul>
-            <span class="text-white">Willkommen, {{name|title}}</span>
+
+            {% if user.is_authenticated %}
+            <ul class="nav navbar-nav navbar-right">
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        {{ user.username }}
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="#">Action</a>
+                        <a class="dropdown-item" href="#">Another action</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
+                    </div>
+                </li>
+
+            </ul>
+           
+            {% else %}
+            <span class="text-white"></span>
+            <a class="text-white" href="{% url 'login' %}">Login</a>
+            </span>
+            {% endif %}
+
+      
         </div>
     </nav>
 </header>
