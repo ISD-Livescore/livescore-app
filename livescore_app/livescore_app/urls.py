@@ -19,6 +19,7 @@ from views.views import home_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('welcome/', home_view, name='home'),
+    path('', home_view, name='home'),
+    path('accounts/', include('accounts.urls')),            #for user registration
     path('accounts/', include('django.contrib.auth.urls')), #needed for login and logout 
 ]
