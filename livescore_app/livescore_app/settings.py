@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     # our apps
     'views',
     'livescore_app',
+     'accounts.apps.AccountsConfig',
 ]
 
 MIDDLEWARE = [
@@ -128,3 +129,6 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'assets'),
 ]
+
+LOGIN_REDIRECT_URL = 'home'     #after a successfull login, this is where the user will be routed to
+LOGOUT_REDIRECT_URL = 'home'    #after a successfull logout, this is where the user will be routed to
