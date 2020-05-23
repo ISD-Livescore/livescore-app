@@ -19,16 +19,18 @@
             <button type="button" class="btn btn-primary">Create Game</button>
             {%endif%}
            
-            {%if user not in tournament.participants.all%} 
-            <!-- check if user is already part of tournament, if not - button to register-->
-                {%if tournament.openSpaces > 0 %}
-                    
-                    <!-- <button type="button" class="btn btn-success">Register</button>-->
-                    <a href={{tournament.get_absolute_url}}/changeRegistration class="card-link">Register</a> 
+            {% if user.is_authenticated %}
+                {%if user not in tournament.participants.all%} 
+                <!-- check if user is already part of tournament, if not - button to register-->
+                    {%if tournament.openSpaces > 0 %}
+                        
+                        <!-- <button type="button" class="btn btn-success">Register</button>-->
+                        <a href={{tournament.get_absolute_url}}/changeRegistration class="card-link">Register</a> 
+                    {%endif%}
+                {%else%}
+                    <a href={{tournament.get_absolute_url}}/changeRegistration class="card-link">Unregister</a> 
                 {%endif%}
-            {%else%}
-                <a href={{tournament.get_absolute_url}}/changeRegistration class="card-link">Unregister</a> 
-            {%endif%}
+            {% endif%}
         </div>
          
         {%if registration == "Added"%}
