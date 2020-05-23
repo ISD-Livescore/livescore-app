@@ -5,6 +5,9 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 
+def get_absolute_url(self):
+          return reverse("player",kwargs={"player_id" : self.id})
+User.add_to_class("get_absolute_url",get_absolute_url)
 
 # class Player(models.Model):
 #     # every nickname must be unique for user identification
@@ -33,7 +36,8 @@ class Tournament(models.Model):
         return self.maxPlayers - self.participants.count()
 
     def get_absolute_url(self):
-        return reverse("tournament",kwargs={"my_id" : self.id})
+        return reverse("tournament",kwargs={"tournament_id" : self.id})
+
     
   
 class Game(models.Model):
