@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>{{tournament.name}}</h1> 
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">{{ tournament.venue }} -  {{ tournament.date }} </h5>
+        <h6 class="card-subtitle mb-2 text-muted">
+            {{participants.count}} Participants -
+            {{tournament.openSpaces}} Spaces Open
+            {%if user.is_superuser %}
+            <button type="button" class="btn btn-primary">Create Game</button>
+            {%endif%}
+            
+            <!-- 
+            {% if tournament.status == 'complete' %}
+                <span class="text-muted">{{ tournament.status }} </span>
+            {% endif %}
+            
+            {% if tournament.status == 'running' %}
+                <span class="text-success">{{ tournament.status }} </span>
+            {% endif %}
+
+            {% if tournament.status == 'upcoming' %}
+                <span class="text-primary">{{ tournament.status }} </span>
+            {% endif %} -->
+        </h6>
+        
+
+  
+    </div>
+</div>
+{% endblock %}
+
+
