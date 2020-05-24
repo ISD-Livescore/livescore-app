@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include      #include needed to auth.urls
-from views.views import home_view, tournamentDetail, playerDetail, tournamentRegistration
+from views.views import home_view, tournamentDetail, gameDetail, playerDetail, tournamentRegistration
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -23,6 +23,7 @@ urlpatterns = [
     path('accounts/', include('accounts.urls')),            #for user registration
     path('accounts/', include('django.contrib.auth.urls')), #needed for login and logout 
     path('tournament/<int:tournament_id>',tournamentDetail,name='tournament'),
+    path('game/<int:game_id>',gameDetail,name='game'),
     path('player/<int:player_id>',playerDetail,name='player'),
     path('tournament/<int:tournament_id>/changeRegistration',tournamentRegistration,name='registration'),
    

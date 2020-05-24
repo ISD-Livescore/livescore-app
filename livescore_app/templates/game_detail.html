@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{game.player1}} vs. {{game.player2}}</title>
+
+    <style>
+        html, body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            background: black;
+        }
+        
+        .gameContainer {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            height: 100%;
+            
+        }
+        .playerScore, .playerNames {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            color: white;
+            text-align: center;
+        }
+
+        .playerNames > div, .playerScore > div {
+            flex: 1;
+        }
+
+        .playerNames {
+            height: 200px;
+            font-size: 5rem;
+        }
+
+        .playerScore {
+            flex-grow: 1;
+            font-size: 10rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="gameContainer">
+        <div class="playerNames">
+            <div>{{game.player1}}</div>
+            <div></div>
+            <div>{{game.player2}}</div>
+        </div>
+        <div class="playerScore">
+            <div>{{game.player1_score}}</div>
+            <div>:</div>
+            <div>{{game.player2_score}}</div>
+        </div>
+    </div>
+
+</body>
+</html>

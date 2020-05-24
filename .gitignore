@@ -132,3 +132,5 @@ Include/
 Lib/
 Scripts/
 pyvenv.cfg
+
+**/migrations/
