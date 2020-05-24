@@ -41,10 +41,23 @@ class Tournament(models.Model):
     
   
 class Game(models.Model):
+
+    STATUS_CODES = (
+        ('1', 'not started'),
+        ('2', 'running'),
+        ('3', 'complete'),
+    )
+
     tournament = models.ForeignKey(Tournament,on_delete=models.CASCADE)
     player1 = models.ForeignKey(User,related_name='player1',on_delete=models.CASCADE)
     player2 = models.ForeignKey(User,related_name='player2',on_delete=models.CASCADE)
+    status = models.CharField(max_length=1, choices=STATUS_CODES, default='1')
+    player1_score = models.IntegerField(default=0)
+    player2_score = models.IntegerField(default=0)
+
+    def get_absolute_url(self):
+        return reverse("game",kwargs={"game_id" : self.id})
 
     def __str__(self):          # to change from Game object (1) to name of the tournament : player1 nickname vs player2 nickname in admin panel
-        return self.tournament.name + ', ' + self.player1.nickname + ' vs. ' + self.player2.nickname
+        return self.tournament.name + ', ' + self.player1.username + ' vs. ' + self.player2.username
     
