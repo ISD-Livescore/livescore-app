@@ -28,7 +28,7 @@ sudo apt install -y python3-venv
 
 To create a virtual environment you run 
 
-```python3 -m venv env```
+```python -m venv env```
 
 For the name of the virtual environment we choose `env`. You just need to remember what it is because the next step is to activate the virtual environment. This step differs between Windows and UNIX systems:
 
@@ -54,8 +54,8 @@ Now that we have all the dependencies setup correctly you can go into the `lives
 
 In this folder we need to setup our database. To do so, we need to run two commands:
 
-1) `python3 manage.py migrate`
-2) `python3 manage.py createsuperuser`
+1) `python manage.py migrate`
+2) `python manage.py createsuperuser`
 
 The first command creates a database from all our files and the second command creates a user that allows us to navigate our own app
 
@@ -77,8 +77,10 @@ python3 manage.py startapp <NAME OF YOUR APP>
 python3 manage.py makemigrations
 ```
 ```
-python3 manage.py migrate
+python manage.py migrate --run-syncdb
 ```
+
+
 
 ## Project structure
 
