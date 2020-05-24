@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>{{tournament.name}}</h1>
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">{{ tournament.venue }} - {{ tournament.date }} </h5>
+        <h6 class="card-subtitle mb-2 text-muted">
+            Participants:  </h6>
+      
+        <ul class="list-group list-group-flush">
+            {%for user in tournament.participants.all %}
+          <li class="list-group-item">{{user.username}}</li>
+          {% endfor %}
+        </ul>
+        <div class="card-body">
+            {{tournament.openSpaces}} Spaces Open
+            {%if user.is_superuser %}
+            <button type="button" class="btn btn-primary">Create Game</button>
+            {%endif%}
+           
+            {% if user.is_authenticated %}
+                {%if user not in tournament.participants.all%} 
+                <!-- check if user is already part of tournament, if not - button to register-->
+                    {%if tournament.openSpaces > 0 %}
+                        
+                        <!-- <button type="button" class="btn btn-success">Register</button>-->
+                        <a href={{tournament.get_absolute_url}}/changeRegistration class="card-link">Register</a> 
+                    {%endif%}
+                {%else%}
+                    <a href={{tournament.get_absolute_url}}/changeRegistration class="card-link">Unregister</a> 
+                {%endif%}
+            {% endif%}
+        </div>
+         
+        {%if registration == "Added"%}
+        <div class="alert alert-info alert-dismissible fade show">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong>Added to the tournament.</strong> 
+          </div>
+        {%elif registration == "Removed"%}
+        <div class="alert alert-info alert-dismissible fade show">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong>You successfully unregistered from the tournament</strong> 
+          </div>
+        
+        {%endif%}
+            <!-- 
+            {% if tournament.status == 'complete' %}
+                <span class="text-muted">{{ tournament.status }} </span>
+            {% endif %}
+            
+            {% if tournament.status == 'running' %}
+                <span class="text-success">{{ tournament.status }} </span>
+            {% endif %}
+
+            {% if tournament.status == 'upcoming' %}
+                <span class="text-primary">{{ tournament.status }} </span>
+            {% endif %} -->
+       
+
+
+    </div>
+</div>
+{% endblock %}

@@ -3,13 +3,17 @@
 {% block content %}
     <h1>Ongoing tournaments</h1> 
     <br />
-    {% for tournament in tournaments %}
+    {% for tournament in allTournaments %}
         <div class="card">
             <div class="card-body">
                 <h5 class="card-title">{{ tournament.name }}</h5>
                 <h6 class="card-subtitle mb-2 text-muted">
-                    {{ tournament.date }} - 
-                    
+                    {{tournament.venue}} -  {{ tournament.date }} 
+                </h6>
+                <h6 class="card-subtitle mb-2 text-muted">
+                   {{tournament.participants.count}} Participants -
+                    {{tournament.openSpaces}} Spaces Open
+                    <!-- 
                     {% if tournament.status == 'complete' %}
                         <span class="text-muted">{{ tournament.status }} </span>
                     {% endif %}
@@ -20,11 +24,11 @@
 
                     {% if tournament.status == 'upcoming' %}
                         <span class="text-primary">{{ tournament.status }} </span>
-                    {% endif %}
+                    {% endif %} -->
                 </h6>
                 
 
-                <a href="#" class="card-link">View Tournament</a>
+                <a href={{tournament.get_absolute_url}} class="card-link">View Tournament</a>
             </div>
         </div>
         <br>
