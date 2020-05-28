@@ -15,8 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include      #include needed to auth.urls
-from views.views import home_view, tournamentDetail, gameDetail, playerDetail, tournamentRegistration
-
+from views.views import home_view, tournamentDetail, gameDetail, playerDetail
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home_view, name='home'),
@@ -25,6 +24,5 @@ urlpatterns = [
     path('tournament/<int:tournament_id>',tournamentDetail,name='tournament'),
     path('game/<int:game_id>',gameDetail,name='game'),
     path('player/<int:player_id>',playerDetail,name='player'),
-    path('tournament/<int:tournament_id>/changeRegistration',tournamentRegistration,name='registration'),
    
 ]
