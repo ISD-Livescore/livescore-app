@@ -31,7 +31,7 @@
             {{tournament.openSpaces}} Spaces Open
 
             {%if user.is_superuser %}
-            <a href={{tournament.get_absolute_url}}/createGame  class="card-link btn btn-info" role="button">Register</a> 
+            <a href={{tournament.get_absolute_url}}/createGame  class="card-link btn btn-info" role="button">Create Game</a> 
             {%endif%}
            
             {% if user.is_authenticated %}

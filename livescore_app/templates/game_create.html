@@ -1,11 +1,13 @@
 {% extends 'base.html' %}
-
+<!-- load crispy form tags -->
+{% load crispy_forms_tags %}
 {% block content %}
-{{tournament}}
-{{tournament.id}}
+<h1>{{tournament}}</h1>
+
 <form action="" method='POST'>{% csrf_token %}
-    {{form.as_p}}
-    <input type="submit" name="Save">
+    {{form | crispy}}
+    <input type="submit" value="Create Game" class="btn btn-lg btn-primary btn-block">
+</form>
 {% endblock %}
 
 
