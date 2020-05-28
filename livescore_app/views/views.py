@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
 from datetime import datetime
 from livescore_app.models import Tournament, User, Game
-import logging
+from livescore_app.forms import GameCreateForm
 
 # Create your views here.
 
@@ -70,3 +70,33 @@ def gameDetail(httprequest, game_id, *args, **kwargs):
 
     return render(httprequest, "game_detail.html", context)
 
+def createGame(httprequest, tournament_id, *args, **kwargs):
+
+    gameForm = GameCreateForm(httprequest.POST or None)
+
+    #get tournament 
+    tournament = get_object_or_404(Tournament, id=tournament_id)
+    
+    #set field values . only players which participate in tournament
+    
+    gameForm.fields["player1"].queryset = tournament.participants.all()
+    gameForm.fields["player2"].queryset = tournament.participants.all()
+   
+    if gameForm.is_valid():
+   
+        print("isvalid",gameForm.cleaned_data)
+        
+        #create, but do not save game yet
+        newGame = gameForm.save(commit=False)
+        #add tournament to the game
+        newGame.tournament = tournament
+        print("hat funktioniert",newGame)
+        #save the game
+        newGame.save()
+        gameForm = GameCreateForm()
+
+    context = {
+        "form" : gameForm,
+        "tournament": tournament
+    }
+    return render(httprequest, "game_create.html", context)
