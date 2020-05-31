@@ -108,11 +108,44 @@
                 }));
             }
 
+            document.getElementById("player1_minus").onclick = function(e) {
+                const player1Input = document.getElementById("player1_score")
+                const player1Score = parseInt(player1Input.textContent) - 1;
+                const player2Input = document.getElementById("player2_score")
+                const player2Score = parseInt(player2Input.textContent);
+
+                if(player1Score < 0) {
+                    player1Score = 0;
+                }
+
+                gameSocket.send(JSON.stringify({
+                    'player1Score': player1Score,
+                    'player2Score': player2Score
+                }));
+            }
+
             document.getElementById("player2_plus").onclick = function(e) {
                 const player1Input = document.getElementById("player1_score")
                 const player1Score = parseInt(player1Input.textContent);
                 const player2Input = document.getElementById("player2_score")
                 const player2Score = parseInt(player2Input.textContent) + 1;
+
+                gameSocket.send(JSON.stringify({
+                    'player1Score': player1Score,
+                    'player2Score': player2Score
+                }));
+            }
+
+            document.getElementById("player2_minus").onclick = function(e) {
+                const player1Input = document.getElementById("player1_score")
+                const player1Score = parseInt(player1Input.textContent);
+                const player2Input = document.getElementById("player2_score")
+                let player2Score = parseInt(player2Input.textContent) - 1;
+
+                if(player2Score < 0) {
+                    player2Score = 0;
+                }
+
 
                 gameSocket.send(JSON.stringify({
                     'player1Score': player1Score,
