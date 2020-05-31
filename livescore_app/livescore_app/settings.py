@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     # our apps
     'views',
     'livescore_app',
-     'accounts.apps.AccountsConfig',
+    'channels',
+    'accounts.apps.AccountsConfig',
 ]
 
 MIDDLEWARE = [
@@ -75,6 +76,13 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'livescore_app.wsgi.application'
+ASGI_APPLICATION = 'livescore_app.routing.application'
+
+CHANNEL_LAYERS={
+    "default": {
+        "BACKEND": "channels.layers.InMemoryChannelLayer"
+     }
+}
 
 
 # Database
