@@ -1,7 +1,22 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>Ongoing tournaments</h1> 
+    <h1>Livescore App</h1>
+
+    <div>
+        <br />
+        This app was developed by <strong>Felix Salcher</strong> and <strong>Marc Schlömmer</strong> as part of the Information Systems Development Seminar.
+        <br /><br />
+        The idea is that this app can be used to keep track of the scores for table tennis games as they are happening live and broadcasting this score to everyone who is interested in it.
+        <br /><br />
+        For this purpose we have set up a tournament / game / player structure. The main focus point of this app is the websocket functionality implemented with django-channels that allows for live data connections to push the updated scores to the client.
+        <br /><br />
+        Below you can see the currently running tournament.
+        <br /><br />
+    
+    </div>
+
+    <h2>Ongoing tournaments</h2> 
     <br />
     {% for tournament in allTournaments %}
         <div class="card">
@@ -13,18 +28,6 @@
                 <h6 class="card-subtitle mb-2 text-muted">
                    {{tournament.participants.count}} Participants -
                     {{tournament.openSpaces}} Spaces Open
-                    <!-- 
-                    {% if tournament.status == 'complete' %}
-                        <span class="text-muted">{{ tournament.status }} </span>
-                    {% endif %}
-                    
-                    {% if tournament.status == 'running' %}
-                        <span class="text-success">{{ tournament.status }} </span>
-                    {% endif %}
-
-                    {% if tournament.status == 'upcoming' %}
-                        <span class="text-primary">{{ tournament.status }} </span>
-                    {% endif %} -->
                 </h6>
                 
 

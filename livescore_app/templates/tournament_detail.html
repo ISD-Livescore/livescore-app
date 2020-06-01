@@ -19,17 +19,13 @@
 <div class="card">
     <div class="card-body">
         <h5 class="card-title">{{ tournament.venue }} - {{ tournament.date }} </h5>
-        <h6 class="card-subtitle mb-2 text-muted">Participants:</h6>
-      
-        <ul class="list-group list-group-flush">
-            {%for user in tournament.participants.all %}
-                <li class="list-group-item">{{user.username}}</li>
-            {% endfor %}
-        </ul>
 
         <div class="card-body">
-            {{tournament.openSpaces}} Spaces Open
-
+            <h6 class="card-subtitle mb-2 text-muted">Participants:</h6>
+            <span>{{ tournament.participants.all|join:", " }}</span>
+            <br /><br />
+            <div>{{tournament.openSpaces}} Spaces Open</div>
+            <br />
             {%if user.is_superuser %}
             <a href={{tournament.get_absolute_url}}/createGame  class="card-link btn btn-info" role="button">Create Game</a> 
             {%endif%}
@@ -57,25 +53,31 @@
 {% if games.activeGames %}
     <h2>Active Games</h2>
 
-    {% for game in games.activeGames %}
-         <a href={{game.get_absolute_url}}> {{game.player1}} {{game.player1_score}} : {{game.player2_score}} {{game.player2}} </a>
-    {% endfor %}
+    <ul class="list-group">
+        {% for game in games.activeGames %}
+            <li class="list-group-item"><a href={{game.get_absolute_url}}>{{game.player1}} {{game.player1_score}} : {{game.player2_score}} {{game.player2}}</a></li>
+        {% endfor %}
+    </ul>
 {% endif %}
 
 {% if games.upcomingGames %}
     <h2>Upcoming Games</h2>
 
-    {% for game in games.upcomingGames %}
-        <a href={{game.get_absolute_url}}> {{game.player1}} : {{game.player2}} </a>
-    {% endfor %}
+    <ul class="list-group">
+        {% for game in games.upcomingGames %}
+            <li class="list-group-item"><a href={{game.get_absolute_url}}>{{game.player1}} {{game.player1_score}} : {{game.player2_score}} {{game.player2}}</a></li>
+        {% endfor %}
+    </ul>
 {% endif %}
 
 {% if games.completedGames %}
     <h2>Completed Games</h2>
 
-    {% for game in games.completedGames %}
-        <a href={{game.get_absolute_url}}> {{game.player1}} {{game.player1_score}} : {{game.player2_score}} {{game.player2}} </a>
-    {% endfor %}
+    <ul class="list-group">
+        {% for game in games.completedGames %}
+            <li class="list-group-item"><a href={{game.get_absolute_url}}>{{game.player1}} {{game.player1_score}} : {{game.player2_score}} {{game.player2}}</a></li>
+        {% endfor %}
+    </ul>
 {% endif %}
 
 {% endblock %}
