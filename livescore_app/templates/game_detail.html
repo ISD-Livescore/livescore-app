@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{game.player1}} vs. {{game.player2}}</title>
 
+    {% load static %}
+    <link rel="stylesheet" href="{% static "css/bootstrap.min.css" %}">
+
     <style>
         html, body {
             width: 100%;
@@ -45,6 +48,7 @@
     </style>
 </head>
 <body>
+    
     <div class="gameContainer">
         <div class="playerNames">
             <div>{{game.player1}}</div>
@@ -52,11 +56,125 @@
             <div>{{game.player2}}</div>
         </div>
         <div class="playerScore">
-            <div>{{game.player1_score}}</div>
-            <div>:</div>
-            <div>{{game.player2_score}}</div>
+            <div>
+                <span id="player1_score">{{game.player1_score}}</span>
+                {%if user.is_superuser %}
+                    <br />
+                    <button id="player1_plus" type="button" class="btn btn-lg btn-success">+</button>
+                    <button id="player1_minus" type="button" class="btn btn-sm btn-danger">-</button>
+                {%endif%}
+            </div>
+            <div>
+                <span>:</span>
+            </div>
+            <div>
+                <span id="player2_score">{{game.player2_score}}</span>
+                {%if user.is_superuser %}
+                    <br />
+                    <button id="player2_plus" type="button" class="btn btn-lg btn-success">+</button>
+                    <button id="player2_minus" type="button" class="btn btn-sm btn-danger">-</button>
+                {%endif%}
+            </div>
         </div>
     </div>
+
+    {{ game_id|json_script:"game-id" }}
+
+    <script>
+        const game_id = JSON.parse(document.getElementById('game-id').textContent);
+
+        const gameSocket = new WebSocket(
+            'ws://' + window.location.host + '/ws/game/' + game_id + '/'
+        );
+
+        if(document.getElementById("player1_score").textContent >= 21 || document.getElementById("player2_score").textContent >= 21) {
+            disableButtons();
+        }
+
+        gameSocket.onmessage = function(e) {
+            const data = JSON.parse(e.data);
+            console.log(data);
+            const player1Score = document.getElementById("player1_score");
+            const player2Score = document.getElementById("player2_score");
+            player1Score.textContent = data.player1Score;
+            player2Score.textContent = data.player2Score;
+        }
+
+        gameSocket.onclose = function(e) {
+            console.error('Chat socket clsoed unexpectedly');
+        }
+
+        function disableButtons() {
+            document.getElementById("player1_plus").disabled = true;
+            document.getElementById("player2_plus").disabled = true;
+            document.getElementById("player1_minus").disabled = true;
+            document.getElementById("player2_minus").disabled = true;
+        }
+
+        function sendGameInfo(player1Score, player2Score) {
+            gameSocket.send(JSON.stringify({
+                'player1Score': player1Score,
+                'player2Score': player2Score,
+                'gameId': game_id
+            }));
+
+            if(player1Score == 21) {
+                alert("Player 1 has won the game!");
+                disableButtons();
+            }
+            else if (player2Score == 21) {
+                alert("Player 2 has won the game!");
+                disableButtons();
+            }
+        }
+
+        {%if user.is_superuser %}
+            document.getElementById("player1_plus").onclick = function(e) {
+                const player1Input = document.getElementById("player1_score")
+                const player1Score = parseInt(player1Input.textContent) + 1;
+                const player2Input = document.getElementById("player2_score")
+                const player2Score = parseInt(player2Input.textContent);
+
+                sendGameInfo(player1Score, player2Score);
+            }
+
+            document.getElementById("player1_minus").onclick = function(e) {
+                const player1Input = document.getElementById("player1_score")
+                const player1Score = parseInt(player1Input.textContent) - 1;
+                const player2Input = document.getElementById("player2_score")
+                const player2Score = parseInt(player2Input.textContent);
+
+                if(player1Score < 0) {
+                    player1Score = 0;
+                }
+
+                sendGameInfo(player1Score, player2Score);
+            }
+
+            document.getElementById("player2_plus").onclick = function(e) {
+                const player1Input = document.getElementById("player1_score")
+                const player1Score = parseInt(player1Input.textContent);
+                const player2Input = document.getElementById("player2_score")
+                const player2Score = parseInt(player2Input.textContent) + 1;
+
+                sendGameInfo(player1Score, player2Score);
+            }
+
+            document.getElementById("player2_minus").onclick = function(e) {
+                const player1Input = document.getElementById("player1_score")
+                const player1Score = parseInt(player1Input.textContent);
+                const player2Input = document.getElementById("player2_score")
+                let player2Score = parseInt(player2Input.textContent) - 1;
+
+                if(player2Score < 0) {
+                    player2Score = 0;
+                }
+
+                sendGameInfo(player1Score, player2Score);
+            }
+        {%endif%}
+
+    </script>
 
 </body>
 </html>

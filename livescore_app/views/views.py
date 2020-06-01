@@ -66,7 +66,8 @@ def playerDetail(httprequest, player_id, *args, **kwargs):
 def gameDetail(httprequest, game_id, *args, **kwargs):
     game = get_object_or_404(Game, id=game_id)
     context = {
-        "game": game
+        "game": game,
+        "game_id": game_id
     }
 
     return render(httprequest, "game_detail.html", context)

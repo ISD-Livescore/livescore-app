@@ -29,7 +29,8 @@ class Tournament(models.Model):
     maxPlayers = models.IntegerField()
     participants = models.ManyToManyField(User)
 
-    def __str__(self):          # to change from Tournament object (1) to name of the tournament in admin panel
+    # to change from Tournament object (1) to name of the tournament in admin panel
+    def __str__(self):
         return self.name
 
     def openSpaces(self):
@@ -58,6 +59,7 @@ class Game(models.Model):
     def get_absolute_url(self):
         return reverse("game",kwargs={"game_id" : self.id})
 
-    def __str__(self):          # to change from Game object (1) to name of the tournament : player1 nickname vs player2 nickname in admin panel
+    # to change from Game object (1) to name of the tournament : player1 nickname vs player2 nickname in admin panel
+    def __str__(self):          
         return self.tournament.name + ', ' + self.player1.username + ' vs. ' + self.player2.username
     
