@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 
 def get_absolute_url(self):
           return reverse("player",kwargs={"player_id" : self.id})
-User.add_to_class("get_absolute_url",get_absolute_url)
+User.add_to_class("get_absolute_url",get_absolute_url)  #add getabsolute url function to django user
 
 # class Player(models.Model):
 #     # every nickname must be unique for user identification

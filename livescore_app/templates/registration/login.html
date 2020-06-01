@@ -1,11 +1,30 @@
 {% extends 'base.html' %}
+
+<!-- load crispy form tags -->
+{% load crispy_forms_tags %}
 {% block content %}
-<h2>Login</h2>
-<form method="post">
+<h3 class="h3 mb-3 font-weight-normal">Login</h3>
+<form class="form-signin" method="post">
     <!-- for security, to prevent CSRF attack -->
     {% csrf_token %}
-    <!-- Content of the form will be displayed in paragraphs-->
-    {{ form.as_p }}
-    <button type="submit">Login</button>
+   
+   
+    {{ form|crispy }}
+
+   <!-- {% for field in form.visible_fields %}
+  label {{ field.label }}
+     tag{{ field.label_tag }}
+      feld {{ field }}
+       {{ field.field.widget.input}}
+       {{ field.html_name }}
+       {{ field.help_text }}
+       {{ field.field }}
+       {{ field.field.widget.input_type}}
+ {% endfor %} -->
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
+ 
+
+    <p class="mt-5 mb-3 text-muted">© 2020 ISD</p>
 </form>
+
 {% endblock content %}
