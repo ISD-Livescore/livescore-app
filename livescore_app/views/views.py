@@ -85,9 +85,6 @@ def createGame(httprequest, tournament_id, *args, **kwargs):
     # set field values . only players which participate in tournament
     gameForm.fields["player1"].queryset = tournament.participants.all()
     gameForm.fields["player2"].queryset = tournament.participants.all()
-    
-    # if gameForm["player1"].value() == gameForm["player2"].value():
-    #    raise forms.ValidationError("Player 1 & 2 are not allowed to be the same")
 
     if gameForm.is_valid():
         # create, but do not save game yet
@@ -99,6 +96,9 @@ def createGame(httprequest, tournament_id, *args, **kwargs):
         if gameForm.cleaned_data["player1"] != gameForm.cleaned_data["player2"]:
             newGame.save()
             gameForm = GameCreateForm()
+
+            gameForm.fields["player1"].queryset = tournament.participants.all()
+            gameForm.fields["player2"].queryset = tournament.participants.all()
         else:
             error = "Player 1 & Player 2 can not be the same!"
 

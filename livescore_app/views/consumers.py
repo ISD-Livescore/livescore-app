@@ -34,10 +34,10 @@ class GameConsumer(WebsocketConsumer):
         game.player1_score = player1Score
         game.player2_score = player2Score
 
-        if player1Score > 0 or player2Score > 0:
-            game.status = '2' 
-        elif player1Score >= 21 or player2Score >= 21:
-            game.status = '3'
+        if player1Score >= 21 or player2Score >= 21:
+            game.status = '3' 
+        elif player1Score > 0 or player2Score > 0:
+            game.status = '2'
         
         game.save()
 
