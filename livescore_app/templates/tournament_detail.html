@@ -75,7 +75,7 @@
 
     <ul class="list-group">
         {% for game in games.completedGames %}
-            <li class="list-group-item"><a href={{game.get_absolute_url}}>{{game.player1}} {{game.player1_score}} : {{game.player2_score}} {{game.player2}}</a></li>
+            <li class="list-group-item">{{game.player1}} {{game.player1_score}} : {{game.player2_score}} {{game.player2}}</li>
         {% endfor %}
     </ul>
 {% endif %}
