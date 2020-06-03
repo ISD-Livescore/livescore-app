@@ -6,8 +6,16 @@
 
 <form action="" method='POST'>{% csrf_token %}
     {{form | crispy}}
+
+    {% if error != "" %}
+        <div class="alert alert-danger" role="alert">
+            {{error}}
+        </div>
+    {% endif %}
+
     <input type="submit" value="Create Game" class="btn btn-lg btn-primary btn-block">
 </form>
+
 {% endblock %}
 
 
